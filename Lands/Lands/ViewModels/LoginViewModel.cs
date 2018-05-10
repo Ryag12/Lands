@@ -6,6 +6,7 @@ using System.Text;
 namespace Lands.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Lands.Views;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -20,7 +21,11 @@ namespace Lands.ViewModels
         #endregion
 
         #region Properties
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return this.email; }
+            set { SetValue(ref this.email, value); }
+        }
 
         public string Password
         {
@@ -47,6 +52,11 @@ namespace Lands.ViewModels
         {
             this.IsRemembered = true;
             this.IsEnabled = true;
+
+            this.Email = "Yavier.ag@gmail.com";
+            this.Password = "123456";
+
+            //http://restcountries.eu/rest/v2/all
         }
         #endregion
         #region Commands
@@ -82,7 +92,7 @@ namespace Lands.ViewModels
             this.IsEnabled = true;
 
 
-            if (this.Email != "Yavier.ag@gmail.com" || this.Password !="13456")
+            if (this.Email != "Yavier.ag@gmail.com" || this.Password !="123456")
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
@@ -94,11 +104,17 @@ namespace Lands.ViewModels
 
             this.IsRunning = false;
             this.IsEnabled = true;
-            await Application.Current.MainPage.DisplayAlert(
-                   "Ok",
-                   "Fuck yeahh!!",
-                   "Accept");
-            return;
+
+            this.Email = string.Empty;
+            this.Password = string.Empty;
+            MainViewModel.GetInstance().Lands = new LandsViewModels();
+            await Application.Current.MainPage.Navigation.PushAsync(new LandsPage());
+
+            //await Application.Current.MainPage.DisplayAlert(
+            //       "Ok",
+            //       "Fuck yeahh!!",
+            //       "Accept");
+            //return;
         }
         #endregion
 
