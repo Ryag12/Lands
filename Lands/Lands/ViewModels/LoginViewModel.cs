@@ -12,7 +12,7 @@ namespace Lands.ViewModels
 
     class LoginViewModel : BaseViewModel
     {
-       
+
         #region Attributes
         private string email;
         private string password;
